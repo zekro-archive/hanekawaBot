@@ -1,3 +1,14 @@
+/*
+    TODO & IDEAS:
+    - guild info command
+    - user info command
+    - ID info command
+    - clear command
+    - global nick command
+    - help command (?)
+    - credits command (?)
+*/
+
 const Eris = require('eris')
 const path = require('path')
 const fs = require('fs')
@@ -64,6 +75,7 @@ const COMMANDS = {
     "e": embed,
     "faq": faq,
     "gif": gif,
+    "clear": clear
 }
 
 
