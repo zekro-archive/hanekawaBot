@@ -65,6 +65,11 @@ Send your message as (optional) colored embed message with optional title.
 *No argument will reset your status to your client settings.*  
 With this command, you can set your public status. If you set the game or start the bot only, It can cause that if you set your client status, other members will not see the new status. So you can reset this with this command or set your public status independently of your client status. So you can set your public status to 'online' and your client to 'dnd', so you won't get message notifications but you are visible as 'online'.
 
+- **gif**  
+*Usage:*  `>gif {search query} ({-[index]})`  
+*[index]: Chose the index in search results by attaching for example '-1' or '-2' to the search query*  
+Super fancy advanced gif command which can post super fancy crazy gifs from giphy.com in the chat by searching with a query and an optional index.
+
 - **faq**  
 *Usage:*  `>faq {list|[linkkey]}`  
 *[linkkey]: One of the set keys for faq messages.*  
@@ -116,6 +121,19 @@ npm start
 or with
 ```
 node main.js
+```
+
+If you want to run it 24/7, maybe on a VPS, I recommend running the bot in a screen.  
+If you have not installed screen yet, do it with
+```bash
+sudo apt-get install screen
+```
+Then you can run it in the screen with the command
+```bash
+screen -L -S self npm start
+# Parameter -L creates a logfile named 'screenlog.0'
+# Parameter -S self gives the screen the name 'self' that you can
+# resume the screen with 'screen -r self'
 ```
 
 ---
