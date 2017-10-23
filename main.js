@@ -1,11 +1,12 @@
-/*
-    NOTES:
-    For gif command: https://github.com/austinkelleher/giphy-api
-*/
-
 const Eris = require('eris')
 const path = require('path')
 const fs = require('fs')
+
+// If you have a Giphy API key, please enter it here, -+
+// because the public beta key may be not supportet    |
+// later in time.                +---------------------+
+//                               |
+var giphy = require('giphy-api')();
 
 // Here you can change your bot prefix
 const PREFIX  = ">";
@@ -61,7 +62,8 @@ const COMMANDS = {
     "s": status,
     "embed": embed,
     "e": embed,
-    "faq": faq
+    "faq": faq,
+    "gif": gif,
 }
 
 
@@ -184,6 +186,35 @@ function faq(msg, args) {
         for (var key in FAQS)
             out += `**\`${key}\`**  -  ${FAQS[key][1]}\n`
         sendEmbed(msg.channel, out, "FAQ links");
+    }
+}
+
+// Super crazy advanced gif command to get crazy gifs from giphy.com
+// Select index of search by attaching '-index' to search query
+// For example: '>gif deal with it -1'
+function gif(msg, args) {
+    if (args.length > 0) {
+        query = "";
+        index = 0;
+        for (var ind in args)
+            query += " " + args[ind];
+        if (query.indexOf(" -") > -1) {
+            indstr = query.substring(query.indexOf(" -") + 2)
+            index = parseInt(indstr) == NaN ? 0 : parseInt(indstr);
+            query = query.substring(0, query.indexOf(" -"));
+        }
+        giphy.search(query.substr(1), (err, res) => {
+            if (err) {
+                sendEmbed(msg.channel, `An error occured:\n\`\`\`${err}\`\`\``, "Whoops...", Color.red)
+                    .then(m => setTimeout(() => bot.deleteMessage(m.channel.id, m.id), 4000));
+            }
+            else {
+                urls = [];
+                for (var ind in res["data"])
+                    urls.push(res["data"][ind]["url"]);
+                bot.createMessage(msg.channel.id, urls[index > urls.length - 1 ? urls.length - 1 : index]);
+            }
+        });
     }
 }
 
