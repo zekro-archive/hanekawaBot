@@ -1,0 +1,26 @@
+{
+    "name": "hanekawaBot",
+    "version": "0.1.0",
+    "description": "A NodeJs selfbot created for discord.",
+    "keywords": ["discord", "self", "bot"],
+    "license": "MIT",
+    "main": "main.js",
+    "author": "zekro Development",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/zekroTJA/hanekawaBot"
+    },
+    "scripts": {
+      "start": "node main.js"
+    },
+    "bugs": {
+      "url": "https://github.com/zekroTJA/hanekawaBot/issues"
+    },
+    "engines": {
+      "node": ">=6.0.0"
+    },
+    "dependencies": {
+      "eris": "^0.7.0"
+    },
+    "devDependencies": {}
+  }
