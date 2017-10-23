@@ -75,7 +75,6 @@ const COMMANDS = {
     "e": embed,
     "faq": faq,
     "gif": gif,
-    "clear": clear
 }
 
 
@@ -136,7 +135,7 @@ function game(msg, args) {
     var gname = "";
     if (args.length > 0) {
         for (var ind in args)
-            gname += args[ind];
+            gname += args[ind] + " ";
     }
     bot.editStatus(msg.member.status, gname.length > 0 ? {name: gname} : null);
     sendEmbed(
