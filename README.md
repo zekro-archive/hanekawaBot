@@ -88,7 +88,7 @@ If you want to use it, just set your keys and messages in the `main.js` in the m
 - [ ] **ID command**<br>*Display ID of object by mention or keyword*
 - [ ] **Global Nickname command**<br>*Change your nickname on all servers*
 - [ ] **Help Command**<br>*Returns all command invokes*
-- [ ] **Json Settings system**<br>*Change aliases, prefix... in json file*
+- [x] **Json Settings system**<br>*Change aliases, prefix... in json file*
 
 ---
 
@@ -124,9 +124,15 @@ Now, you can install all needed packages with
 npm i
 ```
 
-Then, create a file named 'token.txt' and enter there your **private account token** (not a bot account token!).  
+Then open the **`config.json`** file and enter your **private account token** (not a bot account token!).  
 *If you don't know how to get your private account token, just take a look below.*  
-You can also change your prefix and the FAQ-Command keys in the `main.json` in the variables `PREFIX` and `FAQS`.
+You can also change the prefix of the bot *(defaultly it's `>`)* and the FAQ-Links from FAQ-Command.  
+Also you can change there all command invokes and aliases like you want!  
+
+Little thing about the giphy API token:  
+You don't need to enter a token if you don't have a giphy account, but if you have an account, please create a private giphy API token **[here](https://developers.giphy.com/dashboard/)**.  
+Otherwise, the bot will run on an public beta API key, which is not save that it will work forever and may be terminated for function. So please create an account and use your own token.
+
 
 After that, start the bot with
 ```
