@@ -87,14 +87,16 @@ I don't recomment to overuse this command, because I dont know if you could get 
 
 ## Will be implemented:
 
-- [x] **Clear command**<br>*Only to clear own messages send by you*
 - [ ] **Guild Info command**<br>*Display various information about guild*
 - [ ] **User Info command**<br>*Display various information about user*
 - [ ] **Secret Option**<br>*Command output only in console*
 - [ ] **ID command**<br>*Display ID of object by mention or keyword*
 - [ ] **Global Nickname command**<br>*Change your nickname on all servers*
 - [ ] **Help Command**<br>*Returns all command invokes*
+- [ ] **Logging in console / file**<br>*Write logs of commands in file and in console*
+- [ ] **Stalking Command**<br>*Stalk someone that you get messages when someone goes online, write a message...*
 - [x] **Json Settings system**<br>*Change aliases, prefix... in json file*
+- [x] **Clear command**<br>*Only to clear own messages send by you*
 
 ---
 
