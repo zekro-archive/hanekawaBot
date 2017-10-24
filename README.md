@@ -1,7 +1,6 @@
 <div align="center">
-    <h1>~ ハネカワ ボット ~</h1>
-    <h2>"hanekawaBot"</h2>
-    <strong>A lightweight NodeJS Discord Self-Bot for self hosting</strong>
+    <h1>hanekawaBot</h1>
+    <h2>A NodeJS Discord Self-Bot</h2>
 </div>
 
 -----
@@ -76,6 +75,19 @@ Super fancy advanced gif command which can post super fancy crazy gifs from giph
 *[linkkey]: One of the set keys for faq messages.*  
 This is actually only a little command for myself, because I often get a lot of support questions where I need to send a link or something like that, so I have just a quick acces to this over this command.  
 If you want to use it, just set your keys and messages in the `main.js` in the map `FAQS`.
+
+---
+
+## Will be implemented:
+
+[ ] **Clear command**<br>*Only to clear own messages send by you*
+[ ] **Guild Info command**<br>*Display various information about guild*
+[ ] **User Info command**<br>*Display various information about user*
+[ ] **Secret Option**<br>*Command output only in console*
+[ ] **ID command**<br>*Display ID of object by mention or keyword*
+[ ] **Global Nickname command**<br>*Change your nickname on all servers*
+[ ] **Help Command**<br>*Returns all command invokes*
+[ ] **Json Settings system**<br>*Change aliases, prefix... in json file*
 
 ---
 
