@@ -4,19 +4,48 @@ const path = require('path')
 const fs = require('fs')
 const cmds = require("./cmds.coffee")
 
-// Here you can change your bot prefix
-const PREFIX  = ">";
 
-// FAQ links for the faq command
-// If you want to set own FAQ links, just add them here like following:
-// "key": ["message", "title"],
-// ...
-const FAQS = {
-    "addbot": ["[zekroBot - Get It](https://github.com/zekroTJA/DiscordBot#get-it)", "zekroBot Get It"],
-    "supp": ["[Support Guideline](https://gist.github.com/zekroTJA/ced58eb57642acc1e0c39f010e33975d)", "Support Guidelines"],
-    "userbots": ["Invite with: `!invite <botID>`\n[User Bot Rules](https://gist.github.com/zekroTJA/485972bbe3b607dee7c91278577be26c)", "Userbot Info"],
-    "faq": ["[zekro FAQ](https://gist.github.com/zekroTJA/75d2da53b01a4c76db27ef6befbfabf6)", "zekro FAQ"]
+var config = null;
+
+// Getting config object from json file if existent
+if (fs.existsSync("config.json")) {
+    config = JSON.parse(fs.readFileSync('config.json', 'utf8'));
+} else {
+    console.log("[ERROR] 'config.json' does not exists! Please download it from github repository!");
+    process.exit(0);
 }
+
+// Initialize Token and Prefix from config
+var token = config["token"];
+var PREFIX  = config["prefix"];
+
+// Initialize FAQS from config
+var FAQS = {};
+var conffaqs = config["FAQS"];
+for (var ind in config["FAQS"]) {
+    FAQS[conffaqs[ind]["invoke"]] = [conffaqs[ind]["content"], conffaqs[ind]["title"]]
+}
+
+// Initialize command invokes and aliases from config
+var confcmds = config["commands"]
+
+function bindCmd(invokes, cmdfunc) {
+    for (var ind in invokes) {
+        COMMANDS[invokes[ind]] = cmdfunc;
+    }
+}
+
+var COMMANDS = {}
+
+bindCmd(confcmds["game"], cmds.game);
+bindCmd(confcmds["status"], cmds.status);
+bindCmd(confcmds["embed"], cmds.embed);
+bindCmd(confcmds["faq"], cmds.faq);
+bindCmd(confcmds["gif"], cmds.gif);
+bindCmd(confcmds["clear"], cmds.clear);
+
+// Load giphy API token from config and give to exports
+exports.giphyapitoken = config["giphyapitoken"];
 
 // Just some color codes
 const Color = {
@@ -36,31 +65,6 @@ console.log(`\hanekawaBot running on version ${VERSION}\n` +
             `(c) 2017 Ringo Hoffman (zekro Development)` +
             `All rights reserved.\n\n` + 
             `Starting up and logging in...`);
-
-/**
- * Reads the private account token out of the 'token.txt' file.
- * If it does not exists or the token has a invalid length, it will throw
- * an error message and stop the process.
- */
-var token = fs.readFileSync('token.txt', 'utf8');
-if (token.length < 15) {
-    console.log("[ERROR] The entered token is invalid or could not be read!")
-    process.exit(0);
-}
-
-// Here will be registered all commands
-// Multiple registration of commands can be used as aliases
-const COMMANDS = {
-    "test": cmds.test,
-    "game": cmds.game,
-    "g": cmds.game,
-    "status": cmds.status,
-    "s": cmds.status,
-    "embed": cmds.embed,
-    "e": cmds.embed,
-    "faq": cmds.faq,
-    "gif": cmds.gif,
-}
 
 
 // Creating bot instance

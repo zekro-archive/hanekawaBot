@@ -1,0 +1,37 @@
+{
+    "token": "YOUR PRIVATE DISCORD ACCOUNT TOKEN HERE",
+    "prefix": ">",
+    "giphyapitoken": "",
+
+    "commands": {
+        "game": ["g", "game"],
+        "status": ["s", "status"],
+        "embed": ["e", "embed"],
+        "faq": ["faq"],
+        "gif": ["gif"],
+        "clear": ["c", "clear"]
+    },
+
+    "FAQS": [
+        {
+            "invoke": "addbot",
+            "content": "[zekroBot - Get It](https://github.com/zekroTJA/DiscordBot#get-it)",
+            "title": "zekroBot Get It"
+        },
+        {
+            "invoke": "supp",
+            "content": "[Support Guideline](https://gist.github.com/zekroTJA/ced58eb57642acc1e0c39f010e33975d)",
+            "title": "Support Guidelines"
+        },
+        {
+            "invoke": "userbots",
+            "content": "Invite with: `!invite <botID>`\n[User Bot Rules](https://gist.github.com/zekroTJA/485972bbe3b607dee7c91278577be26c)",
+            "title": "Userbot Info"
+        },
+        {
+            "invoke": "faq",
+            "content": "[zekro FAQ](https://gist.github.com/zekroTJA/75d2da53b01a4c76db27ef6befbfabf6)",
+            "title": "zekro FAQ"
+        }
+    ]
+}

@@ -1,9 +1,6 @@
 main = require "./main.js"
-# If you have a Giphy API key, please enter it here, -+
-# because the public beta key may be not supportet    |
-# later in time.                +---------------------+
-#                               |
-var giphy = require('giphy-api')();
+
+giphy = if main.giphyapitoken != "" then require('giphy-api')(main.giphyapitoken) else require('giphy-api')()
 
 bot = null
 exports.setbot = (b) -> bot = b
@@ -94,7 +91,6 @@ exports.gif = (msg, args) ->
             indstr = query.substring query.indexOf(" -") + 2
             index = if parseInt indstr == NaN then 0 else parseInt indstr
             query = query.substring 0, query.indexOf " -"
-        console.log query
         giphy.search query.substring(1), (err, res) ->
             if err
                 main.sendEmbed msg.channel, "En error occured:\n```#{err}```", "Whoops...", main.color.red
@@ -106,3 +102,34 @@ exports.gif = (msg, args) ->
                 bot.createMessage msg.channel.id, urls[if index > urls.length - 1 or index < 0 then urls.length - 1 else index]
 
 
+###
+Tricky command to purge your own messages in chat.
+This is currently limited to 20 messages at one, because I don't know if you will get
+busted for that and recomment to don't overuse this command at all.
+This command collects all messages in a range by 100 messages and puts all messages from
+this bot account into an array. Then, message by message, the bot will try to delete the messages.
+Because only real bots can use the command purge endpoint, I need to solve it like this. :/
+###
+exports.clear = (msg, args) ->
+    count = if args.length < 1 then 1 else (if parseInt(args[0]) == NaN then 1 else parseInt(args[0]))
+    # Change here message clear limit AT YOUR OWN RISK
+    #          \/
+    if count > 20
+        main.sendEmbed msg.channel,
+                       """
+                       This command is limited to maximum 20 messages, because we don't recommend purging so much messages at once.\n\n
+                       If you want to increase the limit of this command **at your own risk**, you can do this in the `cmds.coffee` script.
+                       """,
+                       "Limit exceeded", main.color.red
+            .then (m) -> setTimeout (-> bot.deleteMessage m.channel.id, m.id), 7000
+    else
+        yourmsgs = []
+        bot.getMessages msg.channel.id, 100
+            .then (msgs) ->
+                for m in msgs
+                    if m.author == bot.user
+                        yourmsgs.push m
+                count = if count >= yourmsgs.length then yourmsgs.length - 1 else count
+                for m in msgs[1..count]
+                    try bot.deleteMessage msg.channel.id, m.id
+                    catch e then console.log "Failed cleaning message. Mission permissions?"
