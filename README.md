@@ -159,3 +159,23 @@ screen -L -S self npm start
 3. Navigate to tab `Application`
 4. Click on the left side on `Local Storage` -> `https://discordapp.com`
 5. In the table, search for the key `token` and copy your token
+
+---
+
+## Implementing own commands
+
+If you want to implement your own commands into the bot, you can do this adding your code to the `cmds.coffee` script as following:
+```coffee
+exports.yourcommandname = (msg, args) ->
+    # out of msg you can grab all stuff like channel, member, author, content usw...
+    # args containing commands args which were seperated by spaces
+```
+Then, you just need to add it to the COMMANDS map in `main.js` like this:
+```js
+const COMMANDS = {
+    // ...
+    "yourinvoke": cmds.yourcommandname,
+    // ...
+}
+```
+You can also feel free to **contribute** your new command to this repository, if you want. ;)
