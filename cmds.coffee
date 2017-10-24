@@ -130,6 +130,6 @@ exports.clear = (msg, args) ->
                     if m.author == bot.user
                         yourmsgs.push m
                 count = if count >= yourmsgs.length then yourmsgs.length - 1 else count
-                for m in msgs[1..count]
+                for m in yourmsgs[1..count]
                     try bot.deleteMessage msg.channel.id, m.id
                     catch e then console.log "Failed cleaning message. Mission permissions?"
