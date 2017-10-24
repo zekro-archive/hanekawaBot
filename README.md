@@ -1,6 +1,6 @@
 <div align="center">
     <h1>hanekawaBot</h1>
-    <b>A NodeJS Discord Self-Bot</b>
+    <strong>A NodeJS Discord Self-Bot</strong>
 </div>
 
 -----
