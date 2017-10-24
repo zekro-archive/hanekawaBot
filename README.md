@@ -1,7 +1,9 @@
-<div align="center">
-    <h1>hanekawaBot</h1>
-    <h2>A NodeJS Discord Self-Bot</h2>
-</div>
+ <div align="center">
+     <h1>hanekawaBot</h1>
+     <h1>~ ハネカワ ボット ~</h1>
+     <h2>"hanekawaBot"</h2>
+     <strong>A lightweight NodeJS Discord Self-Bot for self hosting</strong>
+ </div>
 
 -----
 
