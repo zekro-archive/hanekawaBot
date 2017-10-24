@@ -20,7 +20,9 @@
       "node": ">=6.0.0"
     },
     "dependencies": {
-      "eris": "^0.7.0"
+      "eris": "^0.7.0",
+      "giphy-api": "^1.2.7",
+      "coffee-script": "^1.12.7"
     },
     "devDependencies": {}
   }

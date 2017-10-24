@@ -1,23 +1,8 @@
-/*
-    TODO & IDEAS:
-    - guild info command
-    - user info command
-    - ID info command
-    - clear command
-    - global nick command
-    - help command (?)
-    - credits command (?)
-*/
-
+require('coffee-script/register');
 const Eris = require('eris')
 const path = require('path')
 const fs = require('fs')
-
-// If you have a Giphy API key, please enter it here, -+
-// because the public beta key may be not supportet    |
-// later in time.                +---------------------+
-//                               |
-var giphy = require('giphy-api')();
+const cmds = require("./cmds.coffee")
 
 // Here you can change your bot prefix
 const PREFIX  = ">";
@@ -45,7 +30,7 @@ const Color = {
     orange: 0xe54602
 }
 
-const VERSION = "0.1.0";
+const VERSION = "0.2.0";
 
 console.log(`\hanekawaBot running on version ${VERSION}\n` + 
             `(c) 2017 Ringo Hoffman (zekro Development)` +
@@ -66,21 +51,22 @@ if (token.length < 15) {
 // Here will be registered all commands
 // Multiple registration of commands can be used as aliases
 const COMMANDS = {
-    "test": test,
-    "game": game,
-    "g": game,
-    "status": status,
-    "s": status,
-    "embed": embed,
-    "e": embed,
-    "faq": faq,
-    "gif": gif,
+    "test": cmds.test,
+    "game": cmds.game,
+    "g": cmds.game,
+    "status": cmds.status,
+    "s": cmds.status,
+    "embed": cmds.embed,
+    "e": cmds.embed,
+    "faq": cmds.faq,
+    "gif": cmds.gif,
 }
 
 
 // Creating bot instance
 const bot = new Eris(token);
-
+// Giving bot instance to cmds script
+cmds.setbot(bot);
 
 /*
     +-------------------+
@@ -119,118 +105,6 @@ bot.on('messageCreate', (msg) => {
 
 
 /*
-    +-----------------+
-    | C O M M A N D S |
-    +-----------------+
-*/
-
-
-// Just a little testing command.
-function test(msg, args) {
-    sendEmbed(msg.channel, "test").then(m => console.log(m));
-}
-
-// With this command, you can change your game message.
-function game(msg, args) {
-    var gname = "";
-    if (args.length > 0) {
-        for (var ind in args)
-            gname += args[ind] + " ";
-    }
-    bot.editStatus(msg.member.status, gname.length > 0 ? {name: gname} : null);
-    sendEmbed(
-        msg.channel, 
-        gname.length > 0 ? `Changed game to \`${gname}\`.` : "Reset game.", 
-        null, 
-        gname.length > 0 ? Color.green : Color.gold
-    ).then(m => setTimeout(() => bot.deleteMessage(m.channel.id, m.id), 3000));
-}
-
-// Send embeded messages
-// use optional 'c::red' for example to specify the color (picked from 'Color' map)
-// use optional 't::this_is_a_title' to specify embeds title (use '_' instead of spaces)
-function embed(msg, args) {
-    var color = null, title = null, content = "";
-    for (var ind in args) {
-        if (args[ind].startsWith("c::")) {
-            clrstr = args[ind].substr(3);
-            color = (clrstr in Color) ? Color[clrstr] : null;      
-        }
-        else if (args[ind].startsWith("t::")) {
-            titlearr = args[ind].substr(3).split("_")
-            title = "";
-            for (var ind2 in titlearr)
-                title += titlearr[ind2] + " ";
-        }
-        else
-            content += args[ind] + " ";
-    }
-    if (content != "")
-        sendEmbed(msg.channel, content, title, color);
-}
-
-// Change current status
-// Setting the game may cause that if you chage your status in client, your status will
-// not be updated for other ones. So you can reset or set your status independently of
-// your client settings.
-function status(msg, args) {
-    var tostatus = args.length > 0 ? args[0].toLowerCase(): "";
-    console.log(tostatus);
-    if (["online", "idle", "dnd", "invisible"].indexOf(tostatus) > -1) {
-        bot.editStatus(tostatus, msg.member.game);
-        sendEmbed(msg.channel, `Changed status to \`${tostatus}\`.`, null, Color.green)
-            .then(m => setTimeout(() => bot.deleteMessage(m.channel.id, m.id), 3000));
-    } else {
-        bot.editStatus(null, msg.member.game);
-        sendEmbed(msg.channel, `Reset status.`, null, Color.green)
-            .then(m => setTimeout(() => bot.deleteMessage(m.channel.id, m.id), 3000));
-    }
-}
-
-// Just a little command for myself, because I often get a lot of the same question
-// so I can quick send links with this command without searching them every time.
-function faq(msg, args) {
-    if (args[0] in FAQS)
-        sendEmbed(msg.channel, FAQS[args[0]][0], FAQS[args[0]][1], Color.cyan);
-    else if (args[0] == "list") {
-        var out = "";
-        for (var key in FAQS)
-            out += `**\`${key}\`**  -  ${FAQS[key][1]}\n`
-        sendEmbed(msg.channel, out, "FAQ links");
-    }
-}
-
-// Super crazy advanced gif command to get crazy gifs from giphy.com
-// Select index of search by attaching '-index' to search query
-// For example: '>gif deal with it -1'
-function gif(msg, args) {
-    if (args.length > 0) {
-        query = "";
-        index = 0;
-        for (var ind in args)
-            query += " " + args[ind];
-        if (query.indexOf(" -") > -1) {
-            indstr = query.substring(query.indexOf(" -") + 2)
-            index = parseInt(indstr) == NaN ? 0 : parseInt(indstr);
-            query = query.substring(0, query.indexOf(" -"));
-        }
-        giphy.search(query.substr(1), (err, res) => {
-            if (err) {
-                sendEmbed(msg.channel, `An error occured:\n\`\`\`${err}\`\`\``, "Whoops...", Color.red)
-                    .then(m => setTimeout(() => bot.deleteMessage(m.channel.id, m.id), 4000));
-            }
-            else {
-                urls = [];
-                for (var ind in res["data"])
-                    urls.push(res["data"][ind]["url"]);
-                bot.createMessage(msg.channel.id, urls[index > urls.length - 1 ? urls.length - 1 : index]);
-            }
-        });
-    }
-}
-
-
-/*
     +----------------------+
     | E X T R A  F U N C S |
     +----------------------+
@@ -252,6 +126,10 @@ function sendEmbed(chan, content, title, clr) {
     return bot.createMessage(chan.id, {embed: {title: title, description: content, color: clr}})
 }
 
+// Export configuration for other scripts
+exports.sendEmbed = sendEmbed;
+exports.color = Color;
+exports.FAQS = FAQS;
 
 // Connect bot
 bot.connect().catch(err => console.log(`[ERROR] Logging in failed!\n ${err}`));
