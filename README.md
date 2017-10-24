@@ -176,12 +176,14 @@ exports.yourcommandname = (msg, args) ->
     # out of msg you can grab all stuff like channel, member, author, content usw...
     # args containing commands args which were seperated by spaces
 ```
-Then, you just need to add it to the COMMANDS map in `main.js` like this:
-```js
-const COMMANDS = {
-    // ...
-    "yourinvoke": cmds.yourcommandname,
-    // ...
+Then, go into `config.json` and add your new command that you can set invokes for it:
+```json
+"commands": {
+    "yourcommandname": ["your", "command", "invokes"]
 }
+```
+Finaly, you need to link them in `main.js` by adding entry like following **below the `COMMANDS = {}` definition**:
+```js
+bindCmd(confcmds["yourcommandname"], cmds.yourcommandname);
 ```
 You can also feel free to **contribute** your new command to this repository, if you want. ;)
