@@ -77,11 +77,17 @@ Super fancy advanced gif command which can post super fancy crazy gifs from giph
 This is actually only a little command for myself, because I often get a lot of support questions where I need to send a link or something like that, so I have just a quick acces to this over this command.  
 If you want to use it, just set your keys and messages in the `main.js` in the map `FAQS`.
 
+- **clear**
+*Usage:*  `>clear ({ammount})`  
+With this command, you can delete up to 20 messages at once or just delete your last written message with just enetering `>c`.  
+I don't recomment to overuse this command, because I dont know if you could get busted for that and if server owners like behaviour like this.  
+*You can increase the message limit manually by editing the `cmds.coffee` script but you will only do this at your own risk!*
+
 ---
 
 ## Will be implemented:
 
-- [ ] **Clear command**<br>*Only to clear own messages send by you*
+- [x] **Clear command**<br>*Only to clear own messages send by you*
 - [ ] **Guild Info command**<br>*Display various information about guild*
 - [ ] **User Info command**<br>*Display various information about user*
 - [ ] **Secret Option**<br>*Command output only in console*
