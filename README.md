@@ -82,14 +82,14 @@ If you want to use it, just set your keys and messages in the `main.js` in the m
 
 ## Will be implemented:
 
-[ ] **Clear command**<br>*Only to clear own messages send by you*
-[ ] **Guild Info command**<br>*Display various information about guild*
-[ ] **User Info command**<br>*Display various information about user*
-[ ] **Secret Option**<br>*Command output only in console*
-[ ] **ID command**<br>*Display ID of object by mention or keyword*
-[ ] **Global Nickname command**<br>*Change your nickname on all servers*
-[ ] **Help Command**<br>*Returns all command invokes*
-[ ] **Json Settings system**<br>*Change aliases, prefix... in json file*
+- [ ] **Clear command**<br>*Only to clear own messages send by you*
+- [ ] **Guild Info command**<br>*Display various information about guild*
+- [ ] **User Info command**<br>*Display various information about user*
+- [ ] **Secret Option**<br>*Command output only in console*
+- [ ] **ID command**<br>*Display ID of object by mention or keyword*
+- [ ] **Global Nickname command**<br>*Change your nickname on all servers*
+- [ ] **Help Command**<br>*Returns all command invokes*
+- [ ] **Json Settings system**<br>*Change aliases, prefix... in json file*
 
 ---
 
